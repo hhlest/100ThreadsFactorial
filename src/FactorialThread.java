@@ -1,14 +1,15 @@
+import java.math.BigInteger;
 
 public class FactorialThread implements Runnable {
 
     public FactorialThread() {
     }
 
-    public int factorial(int n) {
-        if (n < 1)
-            return 1;
+    public BigInteger factorial(BigInteger n) {
+        if (n.compareTo(BigInteger.valueOf(1)) < 0)
+            return BigInteger.valueOf(1);
         else
-            return n * factorial(n - 1);
+            return n.multiply(factorial(n.subtract(BigInteger.valueOf(1))));
     }
 
     @Override
@@ -16,7 +17,7 @@ public class FactorialThread implements Runnable {
         Thread th = Thread.currentThread();
         try {
             String output = th.getName() + "!" + " = ";
-            System.out.println(output + factorial(Integer.parseInt(th.getName())));
+            System.out.println(output + factorial(BigInteger.valueOf(Long.parseLong(th.getName()))));
             Thread.sleep(50);
         } catch (InterruptedException e) {
             e.printStackTrace();
